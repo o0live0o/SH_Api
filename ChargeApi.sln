@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargeApi", "ChargeApi\ChargeApi.csproj", "{012B7527-797D-4E37-87B9-C0A8C3FC48FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{012B7527-797D-4E37-87B9-C0A8C3FC48FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012B7527-797D-4E37-87B9-C0A8C3FC48FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012B7527-797D-4E37-87B9-C0A8C3FC48FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012B7527-797D-4E37-87B9-C0A8C3FC48FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B29E555-F91D-4B71-BDCE-B928FAC193F8}
+	EndGlobalSection
+EndGlobal
