@@ -30,16 +30,29 @@ namespace ChargeApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen(s=> {
-                s.SwaggerDoc("V1",new Microsoft.OpenApi.Models.OpenApiInfo() { 
+            services.AddCors(o =>
+           o.AddPolicy("CorsPolicy",
+              builder => builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(_ => true)
+            .AllowCredentials()
+             ));
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
                     Title = "V1"
                 });
             });
+
             services.AddScoped<IConstantService, ConstantService>();
             services.AddScoped<IQueryService, QueryService>();
             services.AddControllers();
-            services.AddDbContext<ChargeContext>(option=> {
-                option.UseSqlServer("Data Source=(local);Initial Catalog=ChargeDB;User ID=sa;Password=123456;");
+            services.AddDbContext<ChargeContext>(option =>
+            {
+                //option.UseSqlServer("Data Source=(local);Initial Catalog=ChargeDB;User ID=sa;Password=123456;");
+                option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
         }
 
@@ -50,10 +63,11 @@ namespace ChargeApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("CorsPolicy");
             app.UseSwagger();
 
-            app.UseSwaggerUI(s=> {
+            app.UseSwaggerUI(s =>
+            {
                 s.SwaggerEndpoint("/swagger/V1/swagger.json", "V1");
             });
 
