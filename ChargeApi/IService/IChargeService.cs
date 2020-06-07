@@ -8,8 +8,8 @@ namespace ChargeApi.IService
 {
     public interface IChargeService
     {
-        Task<bool> SaveChargeRecord(ChargeRecord chargeRecord);
+        Task<Tuple<bool,string>> SaveChargeRecord(ChargeRecord chargeRecord);
 
-        Task<bool> SaveChargeDetails(ChargeDetail[] chargeDetail);
+        Task<Tuple<bool,string>> SaveChargeDetails(ChargeDetail[] chargeDetail);
     }
 }

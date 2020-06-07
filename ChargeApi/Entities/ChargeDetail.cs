@@ -18,5 +18,7 @@ namespace ChargeApi.Entities
         public int TestTimes { get; set; }
 
         public string Remark { get; set; }
+
+        public Decimal Price { get; set; }
     }
 }

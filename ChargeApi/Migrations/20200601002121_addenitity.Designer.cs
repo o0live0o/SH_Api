@@ -3,44 +3,22 @@ using ChargeApi.DbServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChargeApi.Migrations
 {
     [DbContext(typeof(ChargeContext))]
-    partial class ChargeContextModelSnapshot : ModelSnapshot
+    [Migration("20200601002121_addenitity")]
+    partial class addenitity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ChargeApi.Entities.ChargeDefine", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ItemCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,4)");
-
-                    b.Property<int>("Times")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("chargeDefines");
-                });
 
             modelBuilder.Entity("ChargeApi.Entities.ChargeDetail", b =>
                 {
@@ -85,9 +63,6 @@ namespace ChargeApi.Migrations
                     b.Property<string>("DateOfTest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Guider")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PlateNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -98,9 +73,6 @@ namespace ChargeApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TestNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VehicleType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

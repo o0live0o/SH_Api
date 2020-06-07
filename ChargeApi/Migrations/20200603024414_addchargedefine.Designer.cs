@@ -3,14 +3,16 @@ using ChargeApi.DbServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChargeApi.Migrations
 {
     [DbContext(typeof(ChargeContext))]
-    partial class ChargeContextModelSnapshot : ModelSnapshot
+    [Migration("20200603024414_addchargedefine")]
+    partial class addchargedefine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,9 +87,6 @@ namespace ChargeApi.Migrations
                     b.Property<string>("DateOfTest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Guider")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PlateNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -98,9 +97,6 @@ namespace ChargeApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TestNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VehicleType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

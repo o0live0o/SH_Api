@@ -23,7 +23,7 @@ namespace ChargeApi.Utils
                     s = match.Groups["name"].Value;
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
             return s;
@@ -70,7 +70,7 @@ namespace ChargeApi.Utils
                     }
                 }
             }
-            catch (Exception ex) { throw; }
+            catch  { throw; }
             return t;
         }
 
@@ -138,7 +138,7 @@ namespace ChargeApi.Utils
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch 
                     {
 
                     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChargeApi.DbServer;
 using ChargeApi.IService;
+using ChargeApi.Models;
 using ChargeApi.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,8 +36,8 @@ namespace ChargeApi
               builder => builder
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .SetIsOriginAllowed(_ => true)
-            .AllowCredentials()
+            //.SetIsOriginAllowed(_ => true)
+            //.AllowCredentials()
              ));
             services.AddSwaggerGen(s =>
             {
@@ -48,7 +49,13 @@ namespace ChargeApi
 
             services.AddScoped<IConstantService, ConstantService>();
             services.AddScoped<IQueryService, QueryService>();
-            services.AddControllers();
+            services.AddScoped<IChargeService, ChargeService>();
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettingModel>(appSettingsSection);
+            AppHelper.AppSetting = appSettingsSection.Get<AppSettingModel>();
+
+             services.AddControllers();
             services.AddDbContext<ChargeContext>(option =>
             {
                 //option.UseSqlServer("Data Source=(local);Initial Catalog=ChargeDB;User ID=sa;Password=123456;");
@@ -63,7 +70,7 @@ namespace ChargeApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("CorsPolicy");
+       
             app.UseSwagger();
 
             app.UseSwaggerUI(s =>
@@ -71,10 +78,10 @@ namespace ChargeApi
                 s.SwaggerEndpoint("/swagger/V1/swagger.json", "V1");
             });
 
-            app.UseHttpsRedirection();
+          //  app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

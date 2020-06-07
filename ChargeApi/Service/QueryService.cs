@@ -30,7 +30,7 @@ namespace ChargeApi.Service
                     //hashtable.Add("jkid", "18J52");
                     //hashtable.Add("xmlDoc", queryxml);
                     //WebServiceUtils webServiceTools = new WebServiceUtils();
-                    //var respXml = HttpUtility.HtmlDecode(webServiceTools.SoapMethod("", "", "queryObjectOut", hashtable));
+                    //var respXml = HttpUtility.HtmlDecode(webServiceTools.SoapMethod(AppHelper.AppSetting.Namespace, AppHelper.AppSetting.WebServiceUrl, "queryObjectOut", hashtable));
                     var respXml = "<?xml version=\"1.0\" encoding=\"utf - 8\"?><root><head><code>1</code><message>获取机动车上线登录信息成功</message><rownum>1</rownum></head><body><vehispara><jylsh>110002190227002940101</jylsh><jcxdh>1</jcxdh><xh>11010013239237</xh><hpzl>02</hpzl><hphm>京PWG759</hphm>" +
                         "<clsbdh>LS4ASB3RXDA636379</clsbdh><fdjh>D30J018164</fdjh><csys>B</csys><syxz>A</syxz><rlzl>A</rlzl><gl>72.0</gl><zs>2</zs><zj>2605</zj><qlj>1425</qlj><hlj>1435</hlj><zzl>1880</zzl><zbzl>1175</zbzl><ccrq>2013-02-25 00:00:00.000</ccrq><qdxs>1</qdxs><zczs>1</zczs>" +
                         "<zczw>2</zczw><zzs>2</zzs><zzly>0</zzly><qzdz>03</qzdz><ygddtz>0</ygddtz><zxzxjxs>0</zxzxjxs><lcbds>177267</lcbds><jyxm>F1,H1,H4,B1,B2,B0,DC,C1</jyxm><jylb>01</jylb><bhgx/><jycs>1</jycs><clpp1>长安牌</clpp1><clxh>SC6418HVB5</clxh><syr>曹洪喜</syr>" +

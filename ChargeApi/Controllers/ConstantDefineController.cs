@@ -23,9 +23,9 @@ namespace ChargeApi.Controllers
         }
 
         [HttpGet]
-        public  Task<ResponseModel> GetConstantDefines()
+        public Task<ResponseModel> GetConstantDefines()
         {
-            return Task.Run(async ()=>
+            return Task.Run(async () =>
             {
                 ResponseModel response = new ResponseModel();
                 var data = await m_constantService.GetConstantDefines();
@@ -35,7 +35,7 @@ namespace ChargeApi.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public Task<ResponseModel> GetConstantDefine(int id)
         {
             return Task.Run(async () =>
@@ -48,30 +48,18 @@ namespace ChargeApi.Controllers
             });
         }
 
-        [HttpPut]
-        public Task<ResponseModel> ModifyConstantDefine(ConstantDefine constantType)
-        {
-            return Task.Run(async () =>
-            {
-                ResponseModel response = new ResponseModel();
-
-                return response;
-            });
-        }
 
         [HttpPost]
-        public Task<ResponseModel> AddConstantDefine(ConstantDefine constantDefine)
+        public Task<ResponseModel> SaveConstantDefine(ConstantDefine constantDefine)
         {
             return Task.Run(async () =>
             {
                 ResponseModel response = new ResponseModel();
-                var type = await m_constantService.AddConstantDefine(constantDefine);
-                if(type.ID > 0)
-                {
-                    response.Code = 1;
-                    response.Data = type;
-                    response.DataCount = 1;
-                }
+                var type = await m_constantService.SaveConstantDefine(constantDefine);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item3;
+                response.Data = type.Item2;
+                response.DataCount = 1;
                 return response;
             });
         }
@@ -82,6 +70,9 @@ namespace ChargeApi.Controllers
             return Task.Run(async () =>
             {
                 ResponseModel response = new ResponseModel();
+                var type = await m_constantService.DeleteConstantDefine(id);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item2;
                 return response;
             });
         }
@@ -99,7 +90,7 @@ namespace ChargeApi.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public Task<ResponseModel> GetConstantType(int id)
         {
             return Task.Run(async () =>
@@ -112,29 +103,17 @@ namespace ChargeApi.Controllers
             });
         }
 
-        [HttpPut]
-        public Task<ResponseModel> ModifyConstantType(ConstantType constantType)
-        {
-            return Task.Run(async () =>
-            {
-                ResponseModel response = new ResponseModel();
-                return response;
-            });
-        }
-
         [HttpPost]
-        public Task<ResponseModel> AddConstantType(ConstantType constantType)
+        public Task<ResponseModel> SaveConstantType(ConstantType constantType)
         {
             return Task.Run(async () =>
             {
                 ResponseModel response = new ResponseModel();
-                var type = await m_constantService.AddConstantType(constantType);
-                if (type.ID > 0)
-                {
-                    response.Code = 1;
-                    response.Data = type;
-                    response.DataCount = 1;
-                }
+                var type = await m_constantService.SaveConstantType(constantType);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item3;
+                response.Data = type.Item2;
+                response.DataCount = 1;
                 return response;
             });
         }
@@ -145,8 +124,68 @@ namespace ChargeApi.Controllers
             return Task.Run(async () =>
             {
                 ResponseModel response = new ResponseModel();
+                var type = await m_constantService.DeleteConstantType(id);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item2;
                 return response;
             });
         }
+
+        #region 收费定义
+        [HttpGet]
+        public Task<ResponseModel> GetChargeDefines()
+        {
+            return Task.Run(async () =>
+            {
+                ResponseModel response = new ResponseModel();
+                var data = await m_constantService.GetChargeDefines();
+                response.Data = data;
+                response.DataCount = data.Count();
+                return response;
+            });
+        }
+
+        [HttpGet]
+        public Task<ResponseModel> GetChargeDefine(int id)
+        {
+            return Task.Run(async () =>
+            {
+                ResponseModel response = new ResponseModel();
+                var data = await m_constantService.GetChargeDefine(id);
+                response.Data = data;
+                response.DataCount = 1;
+                return response;
+            });
+        }
+
+
+        [HttpPost]
+        public Task<ResponseModel> SaveChargeDefine(ChargeDefine constantDefine)
+        {
+            return Task.Run(async () =>
+            {
+                ResponseModel response = new ResponseModel();
+                var type = await m_constantService.SaveChargeDefine(constantDefine);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item3;
+                response.Data = type.Item2;
+                response.DataCount = 1;
+                return response;
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public Task<ResponseModel> DeleteChargeDefine(int id)
+        {
+            return Task.Run(async () =>
+            {
+                ResponseModel response = new ResponseModel();
+                var type = await m_constantService.DeleteChargeDefine(id);
+                response.Code = type.Item1 ? 1 : 0;
+                response.Message = type.Item2;
+                return response;
+            });
+        }
+        #endregion
     }
 }

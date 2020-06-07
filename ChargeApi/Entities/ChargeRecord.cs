@@ -13,6 +13,10 @@ namespace ChargeApi.Entities
 
         public string TestNo { get; set; }
 
+        public string Guider { get; set; }
+
+        public string VehicleType { get; set; }
+
         public string TestItem { get; set; }
 
         public decimal Price { get; set; }

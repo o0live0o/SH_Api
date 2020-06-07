@@ -7,6 +7,7 @@ using ChargeApi.IService;
 using ChargeApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace ChargeApi.Controllers
 {
