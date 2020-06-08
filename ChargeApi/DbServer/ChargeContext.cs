@@ -19,7 +19,7 @@ namespace ChargeApi.DbServer
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ChargeRecord>()
                       .Property(p => p.Price)
-                      .HasColumnType("decimal(18,4)");          
+                      .HasColumnType("decimal(18,4)");
             modelBuilder.Entity<ChargeDetail>()
                       .Property(p => p.Price)
                       .HasColumnType("decimal(18,4)");
@@ -33,5 +33,12 @@ namespace ChargeApi.DbServer
         public DbSet<ChargeRecord> chargeRecords { get; set; }
         public DbSet<ChargeDetail> chargeDetails { get; set; }
         public DbSet<ChargeDefine> chargeDefines { get; set; }
+        public DbSet<Menus> menus { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<UserRoleMap> userRoleMaps { get; set; }
+        public DbSet<Permission> permissions { get; set; }
+        public DbSet<Role> roles { get; set; }
+        public DbSet<RolePermissionMap> rolePermissionMaps { get; set; }
+
     }
 }

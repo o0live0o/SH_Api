@@ -3,14 +3,16 @@ using ChargeApi.DbServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChargeApi.Migrations
 {
     [DbContext(typeof(ChargeContext))]
-    partial class ChargeContextModelSnapshot : ModelSnapshot
+    [Migration("20200608082101_addrbac")]
+    partial class addrbac
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,7 +162,7 @@ namespace ChargeApi.Migrations
                     b.Property<string>("MenuName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MenuPath")
+                    b.Property<string>("MenuUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrderNo")
@@ -168,9 +170,6 @@ namespace ChargeApi.Migrations
 
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ParentName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

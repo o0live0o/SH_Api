@@ -50,6 +50,8 @@ namespace ChargeApi
             services.AddScoped<IConstantService, ConstantService>();
             services.AddScoped<IQueryService, QueryService>();
             services.AddScoped<IChargeService, ChargeService>();
+            services.AddScoped<IRBACService, RBACService>();
+            services.AddScoped<IMenuService, MenuService>();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettingModel>(appSettingsSection);
