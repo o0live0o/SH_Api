@@ -59,5 +59,21 @@ namespace ChargeApi.Controllers
                 return menuService.GetMenu(id);
             });
         }
+        [HttpGet]
+        public Task<ResponseModel> GetMenuByUser(int userid)
+        {
+            return Task.Run(() =>
+            {
+                return menuService.GetMenuByUser(userid);
+            });
+        }
+        [HttpGet]
+        public Task<ResponseModel> GetMenuByRole(int roleid)
+        {
+            return Task.Run(() =>
+            {
+                return menuService.GetMenuByRole(roleid);
+            });
+        }
     }
 }

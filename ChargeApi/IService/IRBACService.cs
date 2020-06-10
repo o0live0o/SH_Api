@@ -45,5 +45,9 @@ namespace ChargeApi.IService
         ResponseModel SaveRolePermission(RolePermissionMap[] rolePermissionMaps);
         #endregion
 
+        ResponseModel SaveRoleMenu(RoleMenuMap[] roleMenuMaps);
+
+        ResponseModel UserLogin(string username, string password);
+
     }
 }

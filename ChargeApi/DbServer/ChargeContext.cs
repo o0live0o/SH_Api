@@ -39,6 +39,7 @@ namespace ChargeApi.DbServer
         public DbSet<Permission> permissions { get; set; }
         public DbSet<Role> roles { get; set; }
         public DbSet<RolePermissionMap> rolePermissionMaps { get; set; }
+        public DbSet<RoleMenuMap> RoleMenuMaps { get; set; }
 
     }
 }

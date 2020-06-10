@@ -141,6 +141,24 @@ namespace ChargeApi.Controllers
                 return rbac.GetRoleByUser(userid);
             });
         }
+
+        [HttpPost]
+        public Task<ResponseModel> SaveRoleMenu(RoleMenuMap[]  roleMenuMaps)
+        {
+            return Task.Run(() =>
+            {
+                return rbac.SaveRoleMenu(roleMenuMaps);
+            });
+        }
+
+        [HttpGet]
+        public Task<ResponseModel> UserLogin(string account, string password)
+        {
+            return Task.Run(() =>
+            {
+                return rbac.UserLogin(account, password);
+            });
+        }
         #endregion
     }
 }

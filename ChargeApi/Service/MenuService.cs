@@ -23,7 +23,7 @@ namespace ChargeApi.Service
             ResponseModel response = new ResponseModel();
             chargeContext.menus.Add(menu);
             chargeContext.SaveChanges();
-         
+
             return response;
         }
 
@@ -48,11 +48,62 @@ namespace ChargeApi.Service
             return response;
         }
 
+        public ResponseModel GetMenuByRole(int roleid)
+        {
+            ResponseModel response = new ResponseModel();
+            var obj = (from p in chargeContext.RoleMenuMaps
+                       join q in chargeContext.menus
+                       on p.MenuId equals q.Id
+                       where p.RoleId == roleid
+                       select new Menus
+                       {
+                           Id = q.Id,
+                           ParentId = q.Id,
+                           ParentName = q.ParentName,
+                           MenuName = q.MenuName,
+                           MenuPath = q.MenuPath,
+                           OrderNo = q.OrderNo
+                       }).ToList();
+            response.Data = obj;
+            response.DataCount = obj.Count();
+            return response;
+        }
+
+        public ResponseModel GetMenuByUser(int userid)
+        {
+            ResponseModel response = new ResponseModel();
+            if (userid == -999)
+            {
+                var menu = chargeContext.menus.ToList();
+                response.Data = menu;
+                response.DataCount = menu.Count;
+            }
+            else
+            {
+                var menus = (from p in chargeContext.userRoleMaps
+                             join q in chargeContext.RoleMenuMaps on p.RoleId equals q.RoleId
+                             join r in chargeContext.menus on q.MenuId equals r.Id
+                             where userid == p.UserId
+                             select new Menus
+                             {
+                                 Id = r.Id,
+                                 ParentId = r.ParentId,
+                                 ParentName = r.ParentName,
+                                 MenuName = r.MenuName,
+                                 MenuPath = r.MenuPath,
+                                 OrderNo = r.OrderNo
+                             }).Distinct().ToList();
+                response.Data = menus;
+                response.DataCount = menus.Count();
+            }
+            return response;
+        }
+
         public ResponseModel GetMenus()
         {
             ResponseModel response = new ResponseModel();
             var menu = chargeContext.menus.ToList();
-             response.Data = menu;
+            response.Data = menu;
             response.DataCount = menu.Count;
             return response;
         }

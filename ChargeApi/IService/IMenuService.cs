@@ -18,5 +18,9 @@ namespace ChargeApi.IService
         ResponseModel GetMenus();
 
         ResponseModel GetMenu(int id);
+
+        ResponseModel GetMenuByUser(int userid);
+
+        ResponseModel GetMenuByRole(int roleid);
     }
 }

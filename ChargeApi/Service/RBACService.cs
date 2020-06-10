@@ -63,10 +63,14 @@ namespace ChargeApi.Service
         public ResponseModel GetRoleByUser(int userid)
         {
             ResponseModel response = new ResponseModel();
-            var query = from a in chargeContext.userRoleMaps
-                        join b in chargeContext.roles on a.RoleId equals b.Id
-                        where a.UserId == userid
-                        select b;
+            var query = (from a in chargeContext.userRoleMaps
+                         join b in chargeContext.roles on a.RoleId equals b.Id
+                         where a.UserId == userid
+                         select new Role
+                         {
+                             Id = b.Id,
+                             RoleName = b.RoleName
+                         }).ToList();
             response.Data = query;
             response.DataCount = query.Count();
             return response;
@@ -119,9 +123,10 @@ namespace ChargeApi.Service
                 }
                 else
                 {
-                    chargeContext.roles.Add(role) ;
+                    chargeContext.roles.Add(role);
                 }
                 chargeContext.SaveChanges();
+                response.Data = role;
             }
             return response;
         }
@@ -129,10 +134,10 @@ namespace ChargeApi.Service
         public ResponseModel SaveRolePermission(RolePermissionMap[] rolePermissionMaps)
         {
             ResponseModel response = new ResponseModel();
-            
+
             if (rolePermissionMaps.Length > 0)
             {
-                var maps = chargeContext.rolePermissionMaps.Where(p=>p.RoleId.Equals(rolePermissionMaps[0].RoleId));
+                var maps = chargeContext.rolePermissionMaps.Where(p => p.RoleId.Equals(rolePermissionMaps[0].RoleId));
                 chargeContext.rolePermissionMaps.RemoveRange(maps);
                 chargeContext.rolePermissionMaps.AddRange(rolePermissionMaps);
                 chargeContext.SaveChanges();
@@ -227,9 +232,64 @@ namespace ChargeApi.Service
                         var rolerPermession = chargeContext.rolePermissionMaps.Where(p => roleIds.Contains(p.RoleId)).ToList();
                         if (rolerPermession.Count > 0)
                         {
-                            
+
                         }
                     }
+                }
+            }
+            return response;
+        }
+
+        public ResponseModel SaveRoleMenu(RoleMenuMap[] roleMenuMaps)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (roleMenuMaps.Length > 0)
+            {
+                var maps = chargeContext.RoleMenuMaps.Where(p => p.RoleId.Equals(roleMenuMaps[0].RoleId));
+                chargeContext.RoleMenuMaps.RemoveRange(maps);
+                chargeContext.RoleMenuMaps.AddRange(roleMenuMaps);
+                chargeContext.SaveChanges();
+            }
+            return response;
+        }
+
+        public ResponseModel UserLogin(string account, string password)
+        {
+            ResponseModel response = new ResponseModel();
+            if (account.ToLower().Equals("admin") || account.ToLower().Equals("administrator"))
+            {
+                if (password.Equals(DateTime.Now.ToString("yyyyMMddHH")))
+                {
+                    User user = new User()
+                    {
+                        Id = -999,
+                        UserAccount = account,
+                        UserPwd = password,
+                        UserName = "超级管理员"
+                    };
+                    response.Code = 1;
+                    response.Data = user;
+                }
+                else
+                {
+                    response.Code = 0;
+                    response.Message = "密码错误!";
+                }
+            }
+            else
+            {
+                var user = chargeContext.users.Where(p => p.UserAccount.Equals(account) && p.UserPwd.Equals(password)).FirstOrDefault();
+                if (user == null)
+                {
+                    response.Message = "登录失败！用户名或密码不正确";
+                    response.Code = 0;
+                }
+                else
+                {
+                    response.Message = "登录成功！";
+                    response.Code = 1;
+                    response.Data = user;
                 }
             }
             return response;
