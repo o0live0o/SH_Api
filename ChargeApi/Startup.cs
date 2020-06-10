@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ChargeApi
@@ -60,7 +61,6 @@ namespace ChargeApi
              services.AddControllers();
             services.AddDbContext<ChargeContext>(option =>
             {
-                //option.UseSqlServer("Data Source=(local);Initial Catalog=ChargeDB;User ID=sa;Password=123456;");
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
         }
@@ -72,7 +72,7 @@ namespace ChargeApi
             {
                 app.UseDeveloperExceptionPage();
             }
-       
+
             app.UseSwagger();
 
             app.UseSwaggerUI(s =>

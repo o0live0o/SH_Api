@@ -3,6 +3,7 @@ using ChargeApi.Entities;
 using ChargeApi.IService;
 using ChargeApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace ChargeApi.Service
     public class MenuService : IMenuService
     {
         private readonly ChargeContext chargeContext;
+        private readonly ILogger<MenuService> logger;
 
-        public MenuService(ChargeContext chargeContext)
+        public MenuService(ChargeContext chargeContext, ILogger<MenuService> logger)
         {
             this.chargeContext = chargeContext;
+            this.logger = logger;
         }
         public ResponseModel AddMenu(Menus menu)
         {
@@ -101,6 +104,7 @@ namespace ChargeApi.Service
 
         public ResponseModel GetMenus()
         {
+            logger.LogError("111111111111");
             ResponseModel response = new ResponseModel();
             var menu = chargeContext.menus.ToList();
             response.Data = menu;
