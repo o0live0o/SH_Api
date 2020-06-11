@@ -104,7 +104,6 @@ namespace ChargeApi.Service
 
         public ResponseModel GetMenus()
         {
-            logger.LogError("111111111111");
             ResponseModel response = new ResponseModel();
             var menu = chargeContext.menus.ToList();
             response.Data = menu;

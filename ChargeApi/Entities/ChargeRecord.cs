@@ -24,5 +24,6 @@ namespace ChargeApi.Entities
         public string DateOfTest { get; set; }
 
         public string DateOfCharge { get; set; }
+        public string ChagreUser { get; set; }
     }
 }
