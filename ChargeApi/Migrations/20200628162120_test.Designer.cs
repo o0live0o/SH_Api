@@ -2,14 +2,16 @@
 using ChargeApi.DbServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChargeApi.Migrations
 {
     [DbContext(typeof(ChargeContext))]
-    partial class ChargeContextModelSnapshot : ModelSnapshot
+    [Migration("20200628162120_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

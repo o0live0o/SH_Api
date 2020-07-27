@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ChargeApi.Entities;
 using ChargeApi.IService;
 using ChargeApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,8 @@ namespace ChargeApi.Controllers
         {
             this.menuService = menuService;
         }
+
+        [Authorize]
         [HttpGet]
         public Task<ResponseModel> GetMenus()
         {
