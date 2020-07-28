@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using ChargeApi.DbServer;
 using ChargeApi.IService;
@@ -10,6 +11,7 @@ using ChargeApi.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Options;
@@ -58,7 +60,17 @@ namespace ChargeApi
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options => {
-                options.SaveToken = true;
+                //options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters {
+                    ValidateIssuer = false,//是否验证Issuer
+                    ValidateAudience = false,//是否验证Audience
+                    ValidateLifetime = true,//是否验证失效时间
+                    ValidateIssuerSigningKey = true,//是否验证SecurityKey
+                   // ValidAudience = "AESCR",//Audience
+                   // ValidIssuer = "AESCR",//Issuer，这两项和后面签发jwt的设置一致
+                    ClockSkew = TimeSpan.Zero, // // 默认允许 300s  的时间偏移量，设置为0
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890123456"))
+                };
             });
 
             //services.AddAuthorization(options =>
@@ -86,7 +98,7 @@ namespace ChargeApi
             //          };
 
             //    });
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IConstantService, ConstantService>();
             services.AddScoped<IQueryService, QueryService>();
             services.AddScoped<IChargeService, ChargeService>();
@@ -124,8 +136,9 @@ namespace ChargeApi
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
