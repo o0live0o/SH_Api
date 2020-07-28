@@ -51,6 +51,8 @@ namespace ChargeApi.RbacDev
         bool AddMenu(Menu Menu);
         #endregion
 
-        void GetMenus(string roldIds);
+        void GetMenus(string userId);
+
+        void GetPermission(string userId);
     }
 }
